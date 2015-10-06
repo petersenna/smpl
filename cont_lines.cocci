@@ -1,3 +1,7 @@
+// Peter Senna Tschudin <peter.senna@gmail.com>
+// Identify continuation lines that can be fixed
+// Licensed under GPLv2
+
 @initialize:python@
 @@
 def printer(p1, p2, f):
