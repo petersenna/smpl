@@ -1,5 +1,6 @@
 // Peter Senna Tschudin <peter.senna@gmail.com>
-// Identify continuation lines that can be fixed
+// Identify continuation lines that can be fixed:
+//         All continuation lines should get two extra leading tabs
 // Licensed under GPLv2
 
 @initialize:python@
@@ -18,24 +19,23 @@ def printer(p1, p2, f):
 	l1_tabs_cnt = l1_str[0:l1_first_char].count('\t')
 	l1_whites_cnt = l1_str[0:l1_first_char].count(' ')
 
+        str_to_print = ""
         for i in range(first_l + 1, last_l):
 	    ln_str = lines[i]
             ln_first_char = len(ln_str) - len(ln_str.lstrip())
             ln_tabs_cnt = ln_str[0:ln_first_char].count('\t')
             ln_whites_cnt = ln_str[0:ln_first_char].count(' ')
 
-            str_to_print = ""
             if ln_tabs_cnt != l1_tabs_cnt + 2:
-                str_to_print = ":" + str(i + 1) + " " + f
+                str_to_print += ":" + str(i + 1) + " "
 
             if ln_whites_cnt > 0:
-                if str_to_print:
-                    str_to_print += " ***"
-                else:
-                    str_to_print = ":" + str(i + 1) + " " + f + " ***"
+                str_to_print += "(:" + str(i + 1) + ") "
 
-            if str_to_print:
-                print str_to_print
+
+        if str_to_print:
+            str_to_print += " " + f
+            print str_to_print
 
 
 // Function call
